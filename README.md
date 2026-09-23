@@ -1,60 +1,75 @@
-[README.md](https://github.com/user-attachments/files/32572439/README.md)
-# JAVA-Tutor-Learning-Project# 8051-Based Secure Offline Wallet
+[README.md](https://github.com/user-attachments/files/32572489/README.md)
+# AI Tutor Learning Project
 
-An embedded-systems project built around the AT89S52 microcontroller to demonstrate PIN-based access and basic offline wallet operations.
+A Python/Jupyter-based project package containing programming-question datasets and an AI Tutor evaluation visualization method.
 
-## Project overview
-
-The prototype uses an IR sensor to detect a person, a 4×4 keypad for user input, and a 16×2 LCD for prompts and status messages. After authentication, the program provides a menu for balance checking, depositing, and withdrawing. LEDs provide status indication, and the buzzer is listed among the project components.
-
-> **Implementation note:** The supplied Assembly program keeps the registered ID, PIN, balance, and wrong-attempt counter in internal RAM. It does not contain EEPROM read/write routines. The report lists EEPROM as a component, but persistent EEPROM storage is not demonstrated by this source file. Also, the report mentions fund transfer, while the supplied program implements deposit and withdrawal; confirm/implement transfer before describing it as a completed feature.
-
-## Features shown in the supplied source
-
-- IR-low user detection loop
-- Two-character user ID entry
-- Four-digit PIN entry with masked LCD display
-- Login validation against values held in RAM
-- Three-attempt lock message and `#` key reset
-- Balance display
-- Deposit and withdrawal flow, including low-balance handling
-- LCD messages and green/red LED status indication
-
-## Hardware and tools
-
-- AT89S52 8051 microcontroller
-- 4×4 keypad
-- 16×2 LCD
-- IR sensor
-- Green and red LEDs
-- Buzzer (listed in the project description; not directly driven in the supplied program)
-- MB102 power module, breadboard and jumper wires
-- 11.0592 MHz crystal, capacitors, resistors, contrast potentiometer and reset push button
-- Keil uVision / A51 Assembly
-- Proteus (for circuit design/simulation, if applicable)
-
-## Repository layout
+## Project contents
 
 ```text
-Secure-Offline-Wallet-8051/
-├── README.md
+AI_Tutor_Learning_Project/
+├── data/
+│   ├── programming_questions_solutions.csv
+│   └── python_project_dataset.csv
 ├── src/
-│   └── secure_offline_wallet.a51
-├── docs/
-│   └── project-report.pdf
-└── hardware/
-    └── circuit-diagram-page.jpg
+│   └── visualizer_snippet.py
+├── requirements.txt
+└── README.md
 ```
 
-## How to inspect
+## Dataset information
 
-1. Open `src/secure_offline_wallet.a51` in Keil uVision configured for the appropriate 8051 target.
-2. Review the wiring diagram in `hardware/`.
-3. Refer to the report in `docs/` for the project background, component list, objectives, and development schedule.
+The two supplied CSV files each contain 500 rows and 7 columns:
 
-This repository contains project documentation and source supplied by the student. Verify the hardware and behavior in the target setup before relying on it as a production security or financial system.
+- `Question`
+- `Difficulty Level`
+- `Programming Language`
+- `AI-Generated Solution`
+- `Time Complexity`
+- `Explanation`
+- `Topic`
 
-## Author
+The files are preserved as provided. They appear to contain the same sample records; compare them before deciding whether both need to remain in the final repository.
 
-Deepak Kumar Mohapatra  
-B.Tech, Electronics and Communication Engineering
+## Visualization method
+
+The supplied `visualize_accuracy()` method creates a four-panel performance report:
+
+1. Keyword accuracy per question, grouped by difficulty.
+2. Overall keyword-accuracy distribution.
+3. Keyword coverage heatmap.
+4. Average accuracy by difficulty level.
+
+By default, it saves the plot as `accuracy_report.png` and displays it.
+
+## Requirements
+
+Install the common plotting and data-analysis dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+## Important integration note
+
+`src/visualizer_snippet.py` contains the visualization method exactly as supplied in the conversation. It is a method excerpt, not a self-contained runnable application. The original project must also define:
+
+- `pandas` imported as `pd`
+- The remaining methods of `AITutorEvaluator`
+- `self.results` with the columns `Keyword Accuracy`, `Difficulty`, and `Response`
+- `TEST_CASES` containing `expected_keywords`
+
+The snippet does not include the tutor-generation logic, the evaluator's other methods, or a notebook entry point. Those components have not been fabricated here.
+
+## Running
+
+After integrating the method into the complete evaluator and preparing its required data, call:
+
+```python
+evaluator.visualize_accuracy()
+```
+
+This creates and displays the accuracy report.
+
+## Suggested GitHub repository name
+
+`AI-Tutor-Learning-Project`
